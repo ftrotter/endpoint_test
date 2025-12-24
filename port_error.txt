@@ -1,0 +1,17 @@
+Processing tcalverley101614@oc.providencedirect.org for NPI 1174611222
+Processing julia.schnieders.2@7598.direct.athenahealth.com for NPI 1558459644
+Processing sarahrowling@pmapa.allscriptsdirect.net for NPI 1568550697
+Processing manager@lvpainclinic.com for NPI 1477641504  
+File "/Users/ftrotter/gitper/ftrotter/endpoint_test/process_nppes.py", line 66, in <module>
+    process_endpoint_csv(sys.argv[1])
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/ftrotter/gitper/ftrotter/endpoint_test/process_nppes.py", line 41, in process_endpoint_csv
+    dc.validate_certificate(False)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ftrotter/gitper/ftrotter/direct_test/venv/lib/python3.14/site-packages/gdc/get_direct_certificate.py", line 108, in validate_certificate
+    email_domain_bound_ldap = self.validate_certificate_ldap(
+        download_certificate)
+  File "/Users/ftrotter/gitper/ftrotter/direct_test/venv/lib/python3.14/site-packages/gdc/get_direct_certificate.py", line 271, in validate_certificate_ldap
+    'port': s.port,
+            ^^^^^^
+AttributeError: 'CNAME' object has no attribute 'port'
