@@ -120,10 +120,12 @@ def process_endpoint_csv(input_csv_filepath,
             outrow["ValidEmail"] = validate_email(outrow['Endpoint'])
             
             if outrow['EndpointType'] == "DIRECT":
+                # For DIRECT endpoints, check certificate
                 dc = DCert(outrow['Endpoint'])
                 dc.validate_certificate(False)
 
                 if dc.result['is_found']:
+                    # Certificate found - this is the success condition for DIRECT
                     outrow['ValidDirect'] = "1"
                     # Determine if LDAP or DNS based on the certificate retrieval method
                     method = dc.result.get('method', 'DNS')
@@ -134,12 +136,9 @@ def process_endpoint_csv(input_csv_filepath,
                         outrow['cert_protocol'] = "dns"
                         status_message = "Success: DNS Certificate retrieved"
                 else:
+                    # Certificate not found - failure for DIRECT regardless of email validation
                     outrow['ValidDirect'] = "0"
-                    # Certificate download failed, but if email is valid
-                    if outrow['ValidEmail']:
-                        status_message = "Success: Email data is a properly formed email address"
-                    else:
-                        status_message = "Failed: Could not retrieve certificate"
+                    status_message = "Failed: Could not retrieve certificate"
             else:
                 # EndpointType is EMAIL (not DIRECT)
                 if outrow['ValidEmail']:
